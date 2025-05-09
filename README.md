@@ -1,9 +1,7 @@
 # FeatherHugo - Hugo Based Blog Theme
 ### [Click for demo](https://ibraheemguides.netlify.app/)
 
-![FeatherHugo Light Mode](./featherhugo-light.png)
-
-![FeatherHugo Dark Mode](./featurehugo-dark.png)
+![FeatherHugo](./featherhugo.jpg)
 
 This is a standalone [Hugo](https://gohugo.io/) website powered by [Tailwind CSS](https://tailwindcss.com/) and includes enhanced interactivity via plugins like **Glider.js** and **FsLightbox**. It is designed for fast, responsive content-driven sites.
 
