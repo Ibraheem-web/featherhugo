@@ -21,8 +21,8 @@ To run this Hugo site locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/hugo-site.git
-cd hugo-site
+git clone https://github.com/Ibraheem-web/featherhugo.git
+cd featherhugo
 
 # Install dependencies
 npm install
