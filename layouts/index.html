@@ -1,0 +1,204 @@
+{{ define "main" }}
+<section class="container mx-auto pb-10 relative">
+    <div class="absolute inset-0 hidden lg:block bg-radial-[at_50%_5%] to-70% from-transparent to-white dark:to-black z-[2]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-20% lg:to-30% to-white dark:to-black z-[2]"></div>
+    <div class="absolute inset-0 z-[1] opacity-30">
+        {{ partial "puzzle-pattern.html" . }}
+    </div>
+    <div class="grid grid-cols-6 gap-x-5 pt-20 relative z-10">
+        {{ with .Params.hero }}
+        <div class="col-span-6 py-10 md:py-20 px-5">
+            <div class="lg:w-3/4 xl:w-2/3 space-x-5 space-y-5">
+                <img src="{{ .image }}" class="size-52 rounded-full bg-gray-800 md:float-left object-cover" style="shape-outside: circle();">
+                <div class="space-y-5 text-justify">
+                    <h1 class="text-5xl text-dark-primary dark:text-white font-secondary font-medium">{{ .title }}</h1>
+                    <p class="text-lg text-dark-primary dark:text-light-primary font-primary">{{ .details }}</p>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+
+
+        <section class="col-span-6 grid grid-cols-6 items-center gap-5 py-10 px-5">
+            {{ $featured := where .Site.RegularPages "Type" "featured" }}
+            {{ range first 1 $featured }}
+            <div class="col-span-6 md:col-span-4 group">
+                <div class="grid grid-cols-6 gap-5">
+                    <a href="{{ .RelPermalink }}" class="col-span-6 lg:col-span-3 xl:col-span-2 py-10 bg-dark-primary dark:bg-light-primary rounded-t-xl lg:rounded-tr-none lg:rounded-bl-xl hover:scale-3d hover:scale-105 bg-cover bg-center bg-no-repeat min-h-52 lg:h-full" style="background-image: url('{{ .Params.cover | relURL }}');">
+                    </a>
+                    <div class="col-span-6 lg:col-span-3 xl:col-span-4 space-y-5">
+                        <p class="text-brand text-sm tracking-widest font-primary md:opacity-0 md:-mt-1 md:group-hover:opacity-100">Featured Article</p>
+                        <div class="flex gap-x-3">
+                            {{ range first 1 (.GetTerms "tags") }}
+                            <p class="text-brand hover:scale-115 scale-3d"># <a href="{{ .RelPermalink }}" class="text-dark-primary dark:text-light-primary hover:text-brand hover:border-b-2 border-dotted lowercase">{{ .LinkTitle }}</a></p>
+                            {{ end }}
+                        </div>
+                        <p class="flex items-center gap-1 text-dark-primary dark:text-light-primary">
+                            <svg class="size-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="currentColor" d="M7.18535 12.75C7.18535 12.3082 7.54352 11.95 7.98535 11.95H7.99535C8.43718 11.95 8.79535 12.3082 8.79535 12.75C8.79535 13.1918 8.43718 13.55 7.99535 13.55H7.98535C7.54352 13.55 7.18535 13.1918 7.18535 12.75Z" fill="#323544"/>
+                                <path fill="currentColor" d="M7.98535 15.95C7.54352 15.95 7.18535 16.3082 7.18535 16.75C7.18535 17.1918 7.54352 17.55 7.98535 17.55H7.99535C8.43718 17.55 8.79535 17.1918 8.79535 16.75C8.79535 16.3082 8.43718 15.95 7.99535 15.95H7.98535Z" fill="#323544"/>
+                                <path fill="currentColor" d="M11.1951 12.75C11.1951 12.3082 11.5533 11.95 11.9951 11.95H12.0051C12.4469 11.95 12.8051 12.3082 12.8051 12.75C12.8051 13.1918 12.4469 13.55 12.0051 13.55H11.9951C11.5533 13.55 11.1951 13.1918 11.1951 12.75Z" fill="#323544"/>
+                                <path fill="currentColor" d="M11.9951 15.95C11.5533 15.95 11.1951 16.3082 11.1951 16.75C11.1951 17.1918 11.5533 17.55 11.9951 17.55H12.0051C12.4469 17.55 12.8051 17.1918 12.8051 16.75C12.8051 16.3082 12.4469 15.95 12.0051 15.95H11.9951Z" fill="#323544"/>
+                                <path fill="currentColor" d="M15.2049 12.75C15.2049 12.3082 15.5631 11.95 16.0049 11.95H16.0149C16.4567 11.95 16.8149 12.3082 16.8149 12.75C16.8149 13.1918 16.4567 13.55 16.0149 13.55H16.0049C15.5631 13.55 15.2049 13.1918 15.2049 12.75Z" fill="#323544"/>
+                                <path fill="currentColor" d="M16.0049 15.95C15.5631 15.95 15.2049 16.3082 15.2049 16.75C15.2049 17.1918 15.5631 17.55 16.0049 17.55H16.0149C16.4567 17.55 16.8149 17.1918 16.8149 16.75C16.8149 16.3082 16.4567 15.95 16.0149 15.95H16.0049Z" fill="#323544"/>
+                                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8.75 2.75C8.75 2.33579 8.41421 2 8 2C7.58579 2 7.25 2.33579 7.25 2.75V3.75H5.5C4.25736 3.75 3.25 4.75736 3.25 6V19C3.25 20.2426 4.25736 21.25 5.5 21.25H18.5C19.7426 21.25 20.75 20.2426 20.75 19V6C20.75 4.75736 19.7426 3.75 18.5 3.75H16.75V2.75C16.75 2.33579 16.4142 2 16 2C15.5858 2 15.25 2.33579 15.25 2.75V3.75H8.75V2.75ZM19.25 8.25V6C19.25 5.58579 18.9142 5.25 18.5 5.25H5.5C5.08579 5.25 4.75 5.58579 4.75 6V8.25H19.25ZM4.75 9.75H19.25V19C19.25 19.4142 18.9142 19.75 18.5 19.75H5.5C5.08579 19.75 4.75 19.4142 4.75 19V9.75Z" fill="#323544"/>
+                            </svg>
+                            <span>
+                                {{ .Date | time.Format "2006-01-02" }}
+                            </span>
+                        </p>
+                        <h3 class="text-black dark:text-white text-3xl font-secondary">{{ .Title }}</h3>
+                        <p class="text-dark-primary dark:text-light-primary font-primary">{{ or .Description .Content | plainify | truncate 450 }}</p>
+                        <div>
+                            <a href="{{ .RelPermalink }}" class="text-brand relative overflow-x-hidden inline-block group/button px-5 py-1 rounded-3xl border-brand border hover:text-dark-primary hover:bg-brand hover:scale-3d hover:scale-115">
+                                <span class="group-hover/button:-ml-2 group-hover/button:mr-3">Read More</span>
+                                <svg class="size-5 inline absolute -right-5 group-hover/button:right-0 group-hover/button:mr-2 mt-1" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M21.0791 12.519C21.0744 12.7044 21.0013 12.8884 20.8599 13.0299L14.8639 19.0301C14.5711 19.3231 14.0962 19.3233 13.8032 19.0305C13.5103 18.7377 13.5101 18.2629 13.8029 17.9699L18.5233 13.2461L4.32813 13.2461C3.91391 13.2461 3.57813 12.9103 3.57812 12.4961C3.57812 12.0819 3.91391 11.7461 4.32812 11.7461L18.5158 11.7461L13.8029 7.03016C13.5101 6.73718 13.5102 6.2623 13.8032 5.9695C14.0962 5.6767 14.5711 5.67685 14.8639 5.96984L20.813 11.9228C20.976 12.0603 21.0795 12.2661 21.0795 12.4961C21.0795 12.5038 21.0794 12.5114 21.0791 12.519Z" fill="#323544"/>
+                                </svg>                            
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+            <div class="col-span-6 {{ if $featured }}md:col-span-2{{ end }} mt-18 md:mt-0">
+                <div class="space-y-5">
+                    <h4 class="text-xl text-dark-primary dark:text-light-primary">Discussed Topics</h4>
+                    <div class="space-x-3 space-y-5 h-96 overflow-scroll">
+                        {{ range site.Taxonomies.tags }}
+                        <a
+                            href="{{ .Page.RelPermalink }}"
+                            class="px-5 py-2 shadow-xl bg-light-primary dark:bg-dark-primary text-dark-primary dark:text-light-primary rounded-lg text-sm font-primary hover:text-brand hover:scale-110 hover:scale-3d inline-block uppercase">
+                            {{ .Page.LinkTitle }}
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{ with where site.RegularPages "Section" "articles" }}
+        <section class="col-span-6 grid grid-cols-6 py-10 gap-5 px-5">
+            <div class="col-span-6 md:col-span-4">
+                <div class="grid grid-cols-6 gap-5 gap-y-20">
+                    {{ range first 2 . }}
+                    <div class="col-span-6 sm:col-span-3">
+                        <div class="flex flex-col gap-y-5 h-full">
+                            <a href="{{ .RelPermalink }}" class="bg-dark-primary dark:bg-light-primary rounded-t-xl hover:scale-3d hover:scale-105 py-10 h-52 block bg-no-repeat bg-cover bg-center" style="background-image: url('{{ .Params.cover | relURL }}');"></a>
+                            <div class="space-y-3">
+                                <div class="flex gap-x-3 item-center sm:min-h-[20px]">
+                                    {{ range first 1 (.GetTerms "tags") }}
+                                    <p class="text-brand hover:scale-125 scale-3d"># <a href="{{ .RelPermalink }}" class="text-dark-primary dark:text-light-primary hover:text-brand hover:border-b-2 border-dotted lowercase">{{ .LinkTitle }}</a></p>
+                                    {{ end }}
+                                </div>
+        
+                                <p class="flex items-center gap-1 text-dark-primary dark:text-light-primary sm:min-h-[40px]">
+                                    <svg class="size-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="currentColor" d="M7.18535 12.75C7.18535 12.3082 7.54352 11.95 7.98535 11.95H7.99535C8.43718 11.95 8.79535 12.3082 8.79535 12.75C8.79535 13.1918 8.43718 13.55 7.99535 13.55H7.98535C7.54352 13.55 7.18535 13.1918 7.18535 12.75Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M7.98535 15.95C7.54352 15.95 7.18535 16.3082 7.18535 16.75C7.18535 17.1918 7.54352 17.55 7.98535 17.55H7.99535C8.43718 17.55 8.79535 17.1918 8.79535 16.75C8.79535 16.3082 8.43718 15.95 7.99535 15.95H7.98535Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M11.1951 12.75C11.1951 12.3082 11.5533 11.95 11.9951 11.95H12.0051C12.4469 11.95 12.8051 12.3082 12.8051 12.75C12.8051 13.1918 12.4469 13.55 12.0051 13.55H11.9951C11.5533 13.55 11.1951 13.1918 11.1951 12.75Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M11.9951 15.95C11.5533 15.95 11.1951 16.3082 11.1951 16.75C11.1951 17.1918 11.5533 17.55 11.9951 17.55H12.0051C12.4469 17.55 12.8051 17.1918 12.8051 16.75C12.8051 16.3082 12.4469 15.95 12.0051 15.95H11.9951Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M15.2049 12.75C15.2049 12.3082 15.5631 11.95 16.0049 11.95H16.0149C16.4567 11.95 16.8149 12.3082 16.8149 12.75C16.8149 13.1918 16.4567 13.55 16.0149 13.55H16.0049C15.5631 13.55 15.2049 13.1918 15.2049 12.75Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M16.0049 15.95C15.5631 15.95 15.2049 16.3082 15.2049 16.75C15.2049 17.1918 15.5631 17.55 16.0049 17.55H16.0149C16.4567 17.55 16.8149 17.1918 16.8149 16.75C16.8149 16.3082 16.4567 15.95 16.0149 15.95H16.0049Z" fill="#323544"/>
+                                        <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8.75 2.75C8.75 2.33579 8.41421 2 8 2C7.58579 2 7.25 2.33579 7.25 2.75V3.75H5.5C4.25736 3.75 3.25 4.75736 3.25 6V19C3.25 20.2426 4.25736 21.25 5.5 21.25H18.5C19.7426 21.25 20.75 20.2426 20.75 19V6C20.75 4.75736 19.7426 3.75 18.5 3.75H16.75V2.75C16.75 2.33579 16.4142 2 16 2C15.5858 2 15.25 2.33579 15.25 2.75V3.75H8.75V2.75ZM19.25 8.25V6C19.25 5.58579 18.9142 5.25 18.5 5.25H5.5C5.08579 5.25 4.75 5.58579 4.75 6V8.25H19.25ZM4.75 9.75H19.25V19C19.25 19.4142 18.9142 19.75 18.5 19.75H5.5C5.08579 19.75 4.75 19.4142 4.75 19V9.75Z" fill="#323544"/>
+                                    </svg>
+                                    <span>
+                                        {{ .Date | time.Format "2006-01-02" }}
+                                    </span>
+                                </p>
+                                <h3 class="text-black dark:text-white text-2xl font-secondary sm:min-h-[120px]">{{ .Title | truncate 80 }}</h3>
+                                <p class="text-dark-primary dark:text-light-primary font-primary sm:min-h-[140px]">{{ default .Content .Description| plainify | truncate 230 }}</p>
+                                <div>
+                                    <a href="{{ .RelPermalink }}" class="text-brand relative overflow-x-hidden inline-block group/button px-5 py-1 rounded-3xl border-brand border hover:text-dark-primary hover:bg-brand hover:scale-3d hover:scale-115">
+                                        <span class="group-hover/button:-ml-2 group-hover/button:mr-3">Read More</span>
+                                        <svg class="size-5 inline absolute -right-5 group-hover/button:right-0 group-hover/button:mr-2 mt-1" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="currentColor" d="M21.0791 12.519C21.0744 12.7044 21.0013 12.8884 20.8599 13.0299L14.8639 19.0301C14.5711 19.3231 14.0962 19.3233 13.8032 19.0305C13.5103 18.7377 13.5101 18.2629 13.8029 17.9699L18.5233 13.2461L4.32813 13.2461C3.91391 13.2461 3.57813 12.9103 3.57812 12.4961C3.57812 12.0819 3.91391 11.7461 4.32812 11.7461L18.5158 11.7461L13.8029 7.03016C13.5101 6.73718 13.5102 6.2623 13.8032 5.9695C14.0962 5.6767 14.5711 5.67685 14.8639 5.96984L20.813 11.9228C20.976 12.0603 21.0795 12.2661 21.0795 12.4961C21.0795 12.5038 21.0794 12.5114 21.0791 12.519Z" fill="#323544"/>
+                                        </svg>                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                    {{ range after 2 (first 5 . ) }}
+                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                        <div class="flex flex-col gap-y-5 h-full">
+                            <a href="{{ .RelPermalink }}" class="bg-dark-primary dark:bg-light-primary rounded-t-xl hover:scale-3d hover:scale-105 py-10 h-52 block bg-no-repeat bg-cover bg-center" style="background-image: url('{{ .Params.cover | relURL }}');"></a>
+                            <div class="space-y-3">
+                                <div class="flex gap-x-3 item-center sm:min-h-[30px]">
+                                    {{ range first 1 (.GetTerms "tags") }}
+                                    <p class="text-brand hover:scale-125 scale-3d"># <a href="{{ .RelPermalink }}" class="text-dark-primary dark:text-light-primary hover:text-brand hover:border-b-2 border-dotted lowercase">{{ .LinkTitle }}</a></p>
+                                    {{ end }}
+                                </div>
+        
+                                <p class="flex items-center gap-1 text-dark-primary dark:text-light-primary sm:min-h-[50px]">
+                                    <svg class="size-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="currentColor" d="M7.18535 12.75C7.18535 12.3082 7.54352 11.95 7.98535 11.95H7.99535C8.43718 11.95 8.79535 12.3082 8.79535 12.75C8.79535 13.1918 8.43718 13.55 7.99535 13.55H7.98535C7.54352 13.55 7.18535 13.1918 7.18535 12.75Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M7.98535 15.95C7.54352 15.95 7.18535 16.3082 7.18535 16.75C7.18535 17.1918 7.54352 17.55 7.98535 17.55H7.99535C8.43718 17.55 8.79535 17.1918 8.79535 16.75C8.79535 16.3082 8.43718 15.95 7.99535 15.95H7.98535Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M11.1951 12.75C11.1951 12.3082 11.5533 11.95 11.9951 11.95H12.0051C12.4469 11.95 12.8051 12.3082 12.8051 12.75C12.8051 13.1918 12.4469 13.55 12.0051 13.55H11.9951C11.5533 13.55 11.1951 13.1918 11.1951 12.75Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M11.9951 15.95C11.5533 15.95 11.1951 16.3082 11.1951 16.75C11.1951 17.1918 11.5533 17.55 11.9951 17.55H12.0051C12.4469 17.55 12.8051 17.1918 12.8051 16.75C12.8051 16.3082 12.4469 15.95 12.0051 15.95H11.9951Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M15.2049 12.75C15.2049 12.3082 15.5631 11.95 16.0049 11.95H16.0149C16.4567 11.95 16.8149 12.3082 16.8149 12.75C16.8149 13.1918 16.4567 13.55 16.0149 13.55H16.0049C15.5631 13.55 15.2049 13.1918 15.2049 12.75Z" fill="#323544"/>
+                                        <path fill="currentColor" d="M16.0049 15.95C15.5631 15.95 15.2049 16.3082 15.2049 16.75C15.2049 17.1918 15.5631 17.55 16.0049 17.55H16.0149C16.4567 17.55 16.8149 17.1918 16.8149 16.75C16.8149 16.3082 16.4567 15.95 16.0149 15.95H16.0049Z" fill="#323544"/>
+                                        <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8.75 2.75C8.75 2.33579 8.41421 2 8 2C7.58579 2 7.25 2.33579 7.25 2.75V3.75H5.5C4.25736 3.75 3.25 4.75736 3.25 6V19C3.25 20.2426 4.25736 21.25 5.5 21.25H18.5C19.7426 21.25 20.75 20.2426 20.75 19V6C20.75 4.75736 19.7426 3.75 18.5 3.75H16.75V2.75C16.75 2.33579 16.4142 2 16 2C15.5858 2 15.25 2.33579 15.25 2.75V3.75H8.75V2.75ZM19.25 8.25V6C19.25 5.58579 18.9142 5.25 18.5 5.25H5.5C5.08579 5.25 4.75 5.58579 4.75 6V8.25H19.25ZM4.75 9.75H19.25V19C19.25 19.4142 18.9142 19.75 18.5 19.75H5.5C5.08579 19.75 4.75 19.4142 4.75 19V9.75Z" fill="#323544"/>
+                                    </svg>
+                                    <span>
+                                        {{ .Date | time.Format "2006-01-02" }}
+                                    </span>
+                                </p>
+                                <h3 class="text-black dark:text-white text-2xl font-secondary sm:min-h-[180px]">{{ .Title | truncate 80 }}</h3>
+                                <p class="text-dark-primary dark:text-light-primary font-primary sm:min-h-[200px]">{{ default .Content .Description| plainify | truncate 230 }}</p>
+                                <div>
+                                    <a href="{{ .RelPermalink }}" class="text-brand relative overflow-x-hidden inline-block group/button px-5 py-1 rounded-3xl border-brand border hover:text-dark-primary hover:bg-brand hover:scale-3d hover:scale-115">
+                                        <span class="group-hover/button:-ml-2 group-hover/button:mr-3">Read More</span>
+                                        <svg class="size-5 inline absolute -right-5 group-hover/button:right-0 group-hover/button:mr-2 mt-1" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="currentColor" d="M21.0791 12.519C21.0744 12.7044 21.0013 12.8884 20.8599 13.0299L14.8639 19.0301C14.5711 19.3231 14.0962 19.3233 13.8032 19.0305C13.5103 18.7377 13.5101 18.2629 13.8029 17.9699L18.5233 13.2461L4.32813 13.2461C3.91391 13.2461 3.57813 12.9103 3.57812 12.4961C3.57812 12.0819 3.91391 11.7461 4.32812 11.7461L18.5158 11.7461L13.8029 7.03016C13.5101 6.73718 13.5102 6.2623 13.8032 5.9695C14.0962 5.6767 14.5711 5.67685 14.8639 5.96984L20.813 11.9228C20.976 12.0603 21.0795 12.2661 21.0795 12.4961C21.0795 12.5038 21.0794 12.5114 21.0791 12.519Z" fill="#323544"/>
+                                        </svg>                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                    <div class="col-span-6">
+                        <div class="flex items-center justify-between gap-5 flex-wrap">
+                            <div class="space-y-5">
+                                <h3 class="text-black dark:text-white font-secondary text-2xl">Want to read more?</h3>
+                            </div>
+                            <a href='{{ "/articles/" | relURL }}' class="text-brand relative overflow-x-hidden inline-block group/button px-5 py-1 rounded-3xl border-brand border hover:text-dark-primary hover:bg-brand hover:scale-3d hover:scale-115">
+                                <span class="group-hover/button:-ml-2 group-hover/button:mr-3">View Archives</span>
+                                <svg class="size-5 inline absolute -right-5 group-hover/button:right-0 group-hover/button:mr-2 mt-1" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M21.0791 12.519C21.0744 12.7044 21.0013 12.8884 20.8599 13.0299L14.8639 19.0301C14.5711 19.3231 14.0962 19.3233 13.8032 19.0305C13.5103 18.7377 13.5101 18.2629 13.8029 17.9699L18.5233 13.2461L4.32813 13.2461C3.91391 13.2461 3.57813 12.9103 3.57812 12.4961C3.57812 12.0819 3.91391 11.7461 4.32812 11.7461L18.5158 11.7461L13.8029 7.03016C13.5101 6.73718 13.5102 6.2623 13.8032 5.9695C14.0962 5.6767 14.5711 5.67685 14.8639 5.96984L20.813 11.9228C20.976 12.0603 21.0795 12.2661 21.0795 12.4961C21.0795 12.5038 21.0794 12.5114 21.0791 12.519Z" fill="#323544"/>
+                                </svg>                            
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{ $featured_tag := site.Params.featured_tag }}
+            {{ $tagPages := index site.Taxonomies.tags $featured_tag }}
+
+            {{ if $tagPages }}
+            <div class="col-span-6 md:col-span-2 mt-18 md:mt-0">
+                <h4 class="text-2xl text-dark-primary dark:text-light-primary mb-5">
+                More From <span class="capitalize">{{ $featured_tag }}</span> Category
+                </h4>
+                <div class="space-y-5">
+                {{ range $tagPages.Pages }}
+                    <a href="{{ .RelPermalink }}" class="w-full flex gap-3 hover:scale-3d hover:scale-105">
+                    <div class="flex-2/6 rounded-l-xl bg-cover bg-no-repeat bg-center bg-[url('{{ .Params.cover | relURL }}')]"></div>
+                    <div class="flex-4/6 space-y-3">
+                        <h3 class="text-lg text-dark-primary dark:text-light-primary font-primary">
+                        {{ .Title }}
+                        </h3>
+                    </div>
+                    </a>
+                {{ end }}
+                </div>
+            </div>
+            {{ end }}
+        </section>
+        {{ end }}
+    </div>
+</section>
+{{ end }}

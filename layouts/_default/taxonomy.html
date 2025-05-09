@@ -1,0 +1,22 @@
+{{ define "main" }}
+    <section class="min-h-screen">
+        <div class="container mx-auto px-5 pt-14 pb-10 md:pt-20 relative md:static">
+            <div class="md:flex justify-between gap-7">
+                <div class="md:flex-4/6">
+                    <div class="max-w-[65ch] mb-5 space-y-3">
+                        <h1 class="text-dark-primary dark:text-light-primary font-secondary text-3xl uppercase">{{ .Title }}</h1>
+                    </div>
+                    <div class="space-x-3 space-y-5">
+                        {{ range .Pages }}
+                        <a
+                            href="{{ .RelPermalink }}"
+                            class="px-5 py-2 shadow-xl bg-light-primary dark:bg-dark-primary text-dark-primary dark:text-light-primary rounded-lg text-sm font-primary hover:text-brand hover:scale-110 hover:scale-3d inline-block uppercase">
+                            {{ .LinkTitle }}
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{{ end }}

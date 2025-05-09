@@ -1,0 +1,4 @@
+{{ $randomId := .Parent.Ordinal }}
+<a data-fslightbox="{{ $randomId }}" href="{{ .Params.src | relURL }}">
+    <img src="{{ .Params.src | relURL }}" alt="">
+</a>

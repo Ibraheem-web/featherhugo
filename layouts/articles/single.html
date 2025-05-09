@@ -1,0 +1,93 @@
+{{ define "main" }}
+    <section>
+        <div class="container mx-auto px-5 pt-14 pb-10 md:pt-20 relative md:static">
+            <div class="md:flex justify-between gap-7">
+                <div class="md:flex-4/6">
+                    <div class="max-w-[65ch] mb-5 space-y-3">
+                        <h1 class="text-dark-primary dark:text-light-primary font-secondary text-3xl">{{ .Title }}</h1>
+                        <div class="space-y-5 flex-wrap">
+                            <div class="flex gap-3">
+                                {{ range .GetTerms "tags" }}
+                                <p class="text-brand hover:scale-115 scale-3d"># <a href="{{ .RelPermalink }}" class="text-dark-primary dark:text-light-primary hover:text-brand hover:border-b-2 border-dotted lowercase">{{ .LinkTitle }}</a></p>
+                                {{ end }}
+                            </div>
+                            <div class="flex mb-5 items-center gap-1 text-dark-primary dark:text-light-primary">
+                                <svg class="size-5 text-inherit" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="fill-current" d="M7.18535 12.75C7.18535 12.3082 7.54352 11.95 7.98535 11.95H7.99535C8.43718 11.95 8.79535 12.3082 8.79535 12.75C8.79535 13.1918 8.43718 13.55 7.99535 13.55H7.98535C7.54352 13.55 7.18535 13.1918 7.18535 12.75Z" fill="#323544"/>
+                                    <path class="fill-current" d="M7.98535 15.95C7.54352 15.95 7.18535 16.3082 7.18535 16.75C7.18535 17.1918 7.54352 17.55 7.98535 17.55H7.99535C8.43718 17.55 8.79535 17.1918 8.79535 16.75C8.79535 16.3082 8.43718 15.95 7.99535 15.95H7.98535Z" fill="#323544"/>
+                                    <path class="fill-current" d="M11.1951 12.75C11.1951 12.3082 11.5533 11.95 11.9951 11.95H12.0051C12.4469 11.95 12.8051 12.3082 12.8051 12.75C12.8051 13.1918 12.4469 13.55 12.0051 13.55H11.9951C11.5533 13.55 11.1951 13.1918 11.1951 12.75Z" fill="#323544"/>
+                                    <path class="fill-current" d="M11.9951 15.95C11.5533 15.95 11.1951 16.3082 11.1951 16.75C11.1951 17.1918 11.5533 17.55 11.9951 17.55H12.0051C12.4469 17.55 12.8051 17.1918 12.8051 16.75C12.8051 16.3082 12.4469 15.95 12.0051 15.95H11.9951Z" fill="#323544"/>
+                                    <path class="fill-current" d="M15.2049 12.75C15.2049 12.3082 15.5631 11.95 16.0049 11.95H16.0149C16.4567 11.95 16.8149 12.3082 16.8149 12.75C16.8149 13.1918 16.4567 13.55 16.0149 13.55H16.0049C15.5631 13.55 15.2049 13.1918 15.2049 12.75Z" fill="#323544"/>
+                                    <path class="fill-current" d="M16.0049 15.95C15.5631 15.95 15.2049 16.3082 15.2049 16.75C15.2049 17.1918 15.5631 17.55 16.0049 17.55H16.0149C16.4567 17.55 16.8149 17.1918 16.8149 16.75C16.8149 16.3082 16.4567 15.95 16.0149 15.95H16.0049Z" fill="#323544"/>
+                                    <path class="fill-current" fill-rule="evenodd" clip-rule="evenodd" d="M8.75 2.75C8.75 2.33579 8.41421 2 8 2C7.58579 2 7.25 2.33579 7.25 2.75V3.75H5.5C4.25736 3.75 3.25 4.75736 3.25 6V19C3.25 20.2426 4.25736 21.25 5.5 21.25H18.5C19.7426 21.25 20.75 20.2426 20.75 19V6C20.75 4.75736 19.7426 3.75 18.5 3.75H16.75V2.75C16.75 2.33579 16.4142 2 16 2C15.5858 2 15.25 2.33579 15.25 2.75V3.75H8.75V2.75ZM19.25 8.25V6C19.25 5.58579 18.9142 5.25 18.5 5.25H5.5C5.08579 5.25 4.75 5.58579 4.75 6V8.25H19.25ZM4.75 9.75H19.25V19C19.25 19.4142 18.9142 19.75 18.5 19.75H5.5C5.08579 19.75 4.75 19.4142 4.75 19V9.75Z" fill="#323544"/>
+                                </svg>
+                                <p>{{ .Date | time.Format "2006-02-01" }}</p>
+                            </div>
+                        </div>
+                        {{ with .Params.cover }}
+                        <img src="{{ . | relURL }}" alt="{{ $.Page.Title }}" class="size-full">
+                        {{ end }}
+                    </div>
+                    <article class="prose prose-headings:font-secondary dark:prose-invert prose-a:decoration-dotted prose-a:hover:text-brand prose-h2:scroll-mt-7 md:prose-h2:scroll-mt-16" data-pagefind-body>
+                        {{ .Content }}
+                    </article>
+                </div>
+                <div class="md:hidden absolute top-16 right-3 ml-5 mb-5">
+                    <button class="open-toc text-dark-primary dark:text-light-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5 fill-current" viewBox="0 0 16 16">
+                            <path d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+                            <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-black/20 absolute inset-0 -z-10 toc-wrapper overflow-x-hidden md:hidden">
+                    <div class="text-dark-primary dark:text-light-primary bg-white dark:bg-black w-fit p-5 min-h-screen pt-16 float-right shadow-xl translate-x-full toc">
+                        <button class="float-end close-toc md:hidden text-inherit">
+                            <svg class="size-5 text-inherit" title="table of contents" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="fill-current" d="M6.21967 7.28033C5.92678 6.98744 5.92678 6.51256 6.21967 6.21967C6.51256 5.92678 6.98744 5.92678 7.28033 6.21967L11.999 10.9384L16.7176 6.2198C17.0105 5.92691 17.4854 5.92691 17.7782 6.2198C18.0711 6.51269 18.0711 6.98757 17.7782 7.28046L13.0597 11.999L17.7782 16.7176C18.0711 17.0105 18.0711 17.4854 17.7782 17.7782C17.4854 18.0711 17.0105 18.0711 16.7176 17.7782L11.999 13.0597L7.28033 17.7784C6.98744 18.0713 6.51256 18.0713 6.21967 17.7784C5.92678 17.4855 5.92678 17.0106 6.21967 16.7177L10.9384 11.999L6.21967 7.28033Z" fill="#323544"/>
+                            </svg>                            
+                        </button>
+                        <h3 class="text-xl font-secondary mb-3">On This Page</h3>
+                        {{ .TableOfContents }}
+                    </div>
+                </div>
+                <div class="hidden md:block flex-2/6">
+                    <div class="text-dark-primary dark:text-light-primary sticky top-16">
+                        <h3 class="text-xl font-secondary mb-3">On This Page</h3>
+                        {{ .TableOfContents }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tocOpener = document.querySelector('.open-toc');
+            const tocCloser = document.querySelector('.close-toc');
+            const tocWrapper = document.querySelector('.toc-wrapper');
+            const toc = document.querySelector('.toc');
+
+            tocOpener.addEventListener('click', () => {
+                tocWrapper.classList.remove('-z-10');
+                toc.classList.remove('translate-x-full');
+                document.documentElement.classList.add('overflow-y-hidden');
+              
+            });
+            
+            function closeToc() {
+            tocWrapper.classList.add('-z-10');
+            toc.classList.add('translate-x-full');
+            document.documentElement.classList.remove('overflow-y-hidden');
+            };
+            
+            tocCloser.addEventListener('click', () => {
+            closeToc()
+            });
+            
+            toc.addEventListener('click', () => {
+            closeToc()
+            });
+        });
+    </script>
+{{ end }}

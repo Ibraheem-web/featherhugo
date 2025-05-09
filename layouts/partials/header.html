@@ -1,0 +1,139 @@
+<header class="pt-2 fixed left-0 top-0 w-full z-50">
+    <div class="container mx-auto p-1 rounded-full header flex items-center shadow-light-shadow dark:shadow-dark-shadow">
+        <div class="flex justify-between items-center grow relative lg:static lg:grow-0 lg:w-full">
+            <div class="rounded-full px-2 relative z-10">
+                <a href="{{ site.BaseURL }}" class="font-secondary text-2xl text-dark-primary/90 hover:text-dark-primary dark:text-white/90 dark:hover:text-white underline-left">
+                    {{ site.Title }}
+                </a>
+            </div>
+            <div class="absolute -mx-1 lg:static w-screen sm:w-[105%] lg:w-auto left-0 h-fit lg:h-auto top-10 bg-white dark:bg-black shadow-xl lg:shadow-none lg:bg-transparent p-5 md:p-0 rounded-xl lg:rounded-none transform-3d -translate-y-[150%] opacity-0  lg:opacity-100 lg:translate-0 menu">
+                <ul class="flex flex-col lg:flex-row items-center gap-y-5 gap-x-15">
+                    {{ $current := . }}
+                    {{ range $i, $p := site.Menus.main }}
+                    {{ $menu := .URL | absURL }}
+                    {{ $page := $current.RelPermalink | absURL }}
+                    {{ $active := eq $menu $page }}
+                    {{ if .HasChildren }}
+                    <li class="w-full text-center custom-cursor relative group">
+                        <button id="dropdown-btn-{{ $i }}" class="font-secondary text-dark-primary/90 hover:text-dark-primary dark:text-white/90 dark:hover:text-white dropdown-button w-fit mx-auto">
+                            <span>
+                                {{ .Name }}
+                            </span>
+                            <svg class="size-5 object-contain text-inherit dark:text-brand transition-all duration-500 inline-block" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="fill-current" d="M5.54779 9.09467C5.84069 8.80178 6.31556 8.80178 6.60846 9.09467L12.3281 14.8143L18.0478 9.09467C18.3407 8.80178 18.8156 8.80178 19.1085 9.09467C19.4013 9.38756 19.4013 9.86244 19.1085 10.1553L12.8585 16.4053C12.5656 16.6982 12.0907 16.6982 11.7978 16.4053L5.54779 10.1553C5.2549 9.86244 5.2549 9.38756 5.54779 9.09467Z" fill="#323544"/>
+                            </svg>                                
+                        </button>
+                        <ul id="dropdown-{{ $i }}" class="bg-light-primary dark:bg-dark-primary shadow-xl rounded-lg p-1.5 border border-gray-300 dark:border-gray-700 w-full space-y-1 hidden lg:block lg:absolute lg:min-w-xs lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-2 lg:opacity-0 pointer-events-none">
+                            {{ range .Children }}
+                            {{ $childMenu := .URL | absURL }}
+                            {{ $childPage := $current.RelPermalink | absURL }}
+                            {{ $childActive := eq $childMenu $childPage }}
+                            {{ if $childActive }}
+                            <li class="w-full text-center my-5">
+                                <a class="font-secondary text-brand underline-custom-brand">{{ .Name }}</a>
+                            </li>
+                            {{ else }}
+                            <li class="w-full text-center my-5">
+                                <a href="{{ .URL | absURL }}" class="font-secondary text-dark-primary/90 hover:text-dark-primary dark:text-white/90 dark:hover:text-white underline-left">{{ .Name }}</a>
+                            </li>
+                            {{ end }}
+                            {{ end }}
+                        </ul>
+                        <script>
+                            const mql = window.matchMedia("(max-width: 1023px)");
+                            const button = document.getElementById("dropdown-btn-{{ $i }}");
+                            const dropdown = document.getElementById("dropdown-{{ $i }}");
+
+                            if (mql.matches) {
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    button.addEventListener('click', function () {
+                                            dropdown.classList.toggle('hidden');
+                                            this.children[1].classList.toggle('rotate-180');
+                                        });
+                                });
+                            };
+                            if (!mql.matches) {
+                                let isHoveringButton = false;
+                                let isHoveringDropdown = false;
+
+                                const showDropdown = () => {
+                                dropdown.classList.remove("lg:opacity-0", "-translate-y-2", "pointer-events-none");
+                                dropdown.classList.add("lg:opacity-100", "lg:translate-y-1", "pointer-events-auto");
+                                button.children[1].classList.add("rotate-180");
+                                };
+
+                                const hideDropdown = () => {
+                                if (!isHoveringButton && !isHoveringDropdown) {
+                                    dropdown.classList.remove("lg:opacity-100", "lg:translate-y-1", "pointer-events-auto");
+                                    dropdown.classList.add("lg:opacity-0", "-translate-y-2", "pointer-events-none");
+                                    button.children[1].classList.remove("rotate-180");
+                                }
+                                };
+
+                                // Button hover
+                                button.addEventListener("mouseenter", () => {
+                                isHoveringButton = true;
+                                showDropdown();
+                                });
+
+                                button.addEventListener("mouseleave", () => {
+                                isHoveringButton = false;
+                                setTimeout(hideDropdown, 100); // allow time to reach dropdown
+                                });
+
+                                // Dropdown hover
+                                dropdown.addEventListener("mouseenter", () => {
+                                isHoveringDropdown = true;
+                                });
+
+                                dropdown.addEventListener("mouseleave", () => {
+                                isHoveringDropdown = false;
+                                setTimeout(hideDropdown, 100);
+                                });
+                            };
+                        </script>
+                    </li>
+                    {{ else }}
+                    {{ if $active }}
+                    <li class="w-full text-center">
+                        <a href="{{ .URL }}" class="font-secondary text-brand underline-custom-brand">{{ .Name }}</a>
+                    </li>
+                    {{ else }}
+                    <li class="w-full text-center">
+                        <a href="{{ .URL }}" class="font-secondary text-dark-primary/90 hover:text-dark-primary dark:text-white/90 dark:hover:text-white underline-left">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                    {{ end }}
+                    {{ end }}
+                </ul>
+            </div>
+            <div data-dark="true" class="p-1 size-8 rounded-full relative z-10 custom-cursor">
+                <button class="text-white/90 hover:text-white hidden dark:block lightMode">
+                    <svg class="size-6 hover:rotate-90 hover:scale-3d hover:scale-125 duration-500" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                        <path fill="currentColor" d="M12.0234 2.5C12.4377 2.5 12.7734 2.83579 12.7734 3.25V4.75C12.7734 5.16421 12.4377 5.5 12.0234 5.5C11.6092 5.5 11.2734 5.16421 11.2734 4.75V3.25C11.2734 2.83579 11.6092 2.5 12.0234 2.5Z" fill="#343C54"/>
+                        <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M6.52344 12.5C6.52344 9.46243 8.98587 7 12.0234 7C15.061 7 17.5234 9.46243 17.5234 12.5C17.5234 15.5376 15.061 18 12.0234 18C8.98587 18 6.52344 15.5376 6.52344 12.5ZM12.0234 8.5C9.8143 8.5 8.02344 10.2909 8.02344 12.5C8.02344 14.7091 9.8143 16.5 12.0234 16.5C14.2326 16.5 16.0234 14.7091 16.0234 12.5C16.0234 10.2909 14.2326 8.5 12.0234 8.5Z" fill="#343C54"/>
+                        <path fill="currentColor" d="M19.0948 6.49127C19.3877 6.19837 19.3877 5.7235 19.0948 5.43061C18.8019 5.13771 18.327 5.13771 18.0341 5.43061L16.9735 6.49127C16.6806 6.78416 16.6806 7.25903 16.9735 7.55193C17.2664 7.84482 17.7412 7.84482 18.0341 7.55193L19.0948 6.49127Z" fill="#343C54"/>
+                        <path fill="currentColor" d="M22.0234 12.5C22.0234 12.9142 21.6877 13.25 21.2734 13.25H19.7734C19.3592 13.25 19.0234 12.9142 19.0234 12.5C19.0234 12.0858 19.3592 11.75 19.7734 11.75H21.2734C21.6877 11.75 22.0234 12.0858 22.0234 12.5Z" fill="#343C54"/>
+                        <path fill="currentColor" d="M18.0341 19.5694C18.327 19.8623 18.8019 19.8623 19.0948 19.5694C19.3877 19.2765 19.3877 18.8016 19.0948 18.5087L18.0341 17.4481C17.7412 17.1552 17.2664 17.1552 16.9735 17.4481C16.6806 17.741 16.6806 18.2158 16.9735 18.5087L18.0341 19.5694Z" fill="#343C54"/>
+                        <path fill="currentColor" d="M12.0234 19.5C12.4377 19.5 12.7734 19.8358 12.7734 20.25V21.75C12.7734 22.1642 12.4377 22.5 12.0234 22.5C11.6092 22.5 11.2734 22.1642 11.2734 21.75V20.25C11.2734 19.8358 11.6092 19.5 12.0234 19.5Z" fill="#343C54"/>
+                        <path fill="currentColor" d="M7.0733 18.5147C7.36619 18.2218 7.36619 17.7469 7.0733 17.454C6.78041 17.1612 6.30553 17.1612 6.01264 17.454L4.95198 18.5147C4.65909 18.8076 4.65909 19.2825 4.95198 19.5754C5.24487 19.8683 5.71975 19.8683 6.01264 19.5754L7.0733 18.5147Z" fill="#343C54"/>
+                        <path fill="currentColor" d="M5.02344 12.5C5.02344 12.9142 4.68765 13.25 4.27344 13.25H2.77344C2.35922 13.25 2.02344 12.9142 2.02344 12.5C2.02344 12.0858 2.35922 11.75 2.77344 11.75H4.27344C4.68765 11.75 5.02344 12.0858 5.02344 12.5Z" fill="#343C54"/>
+                        <path fill="currentColor" d="M6.01264 7.54596C6.30553 7.83885 6.78041 7.83885 7.0733 7.54596C7.36619 7.25306 7.36619 6.77819 7.0733 6.4853L6.01264 5.42463C5.71975 5.13174 5.24487 5.13174 4.95198 5.42463C4.65909 5.71753 4.65909 6.1924 4.95198 6.48529L6.01264 7.54596Z" fill="#343C54"/>
+                    </svg>    
+                </button>
+                <button class="text-dark-primary/90 dark:text-dark-primary dark:hidden darkMood">
+                    <svg class="size-6 hover:rotate-90 hover:scale-3d hover:scale-125 duration-500" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M13.7437 3.16931C13.5722 3.45567 13.6105 3.82095 13.8378 4.06542C15.0419 5.36059 15.7773 7.09456 15.7773 9.00196C15.7773 13.0071 12.5305 16.2539 8.52539 16.2539C6.61799 16.2539 4.88402 15.5185 3.58886 14.3144C3.34438 14.0871 2.97911 14.0487 2.69275 14.2203C2.40639 14.3918 2.26788 14.732 2.35295 15.0548C3.48212 19.3396 7.38274 22.5 12.0234 22.5C17.5463 22.5 22.0234 18.0229 22.0234 12.5C22.0234 7.85931 18.863 3.95868 14.5782 2.82951C14.2554 2.74444 13.9153 2.88296 13.7437 3.16931ZM16.4225 5.22521C18.881 6.71513 20.5234 9.41634 20.5234 12.5C20.5234 17.1944 16.7179 21 12.0234 21C8.93977 21 6.23857 19.3575 4.74865 16.8991C5.89214 17.4469 7.17321 17.7539 8.52539 17.7539C13.359 17.7539 17.2773 13.8355 17.2773 9.00196C17.2773 7.64977 16.9704 6.36871 16.4225 5.22521Z" fill="#323544"/>
+                        </svg>                    
+                </button>
+            </div>
+        </div>
+        <div>
+            <button class="inline-block size-[1.5em] align-middle menu-button lg:hidden mr-2">
+                <div class="block relative w-[22px] h-[1px] rounded-full bg-dark-primary dark:bg-light-primary transition-all mx-auto"></div>
+                <div class="block relative w-[22px] h-[1px] rounded-full bg-dark-primary dark:bg-light-primary transition-all mx-auto mt-[7px]"></div>
+                <div class="block relative w-[22px] h-[1px] rounded-full bg-dark-primary dark:bg-light-primary transition-all mx-auto mt-[7px]"></div>
+            </button>
+        </div>
+    </div>
+</header>

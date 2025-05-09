@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@source "hugo_stats.json";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --font-primary: "Nunito", "sans-serif"; 
+    --font-secondary: "Montserrat", "sans-serif";
+
+    --color-dark-primary: var(--color-gray-950);
+    --color-light-primary: var(--color-gray-100);
+    --color-brand: var(--color-emerald-400);
+    --color-white: #fff;
+    --color-light-shadow: var(--color-gray-300);
+    --color-dark-shadow: var(--color-gray-900)
+}
+
+*, * > * {
+  @apply transition-all duration-300;
+}
+
+*::selection{
+  @apply bg-brand/30 text-black;
+}
+
+*:where(.dark, .dark *)::selection {
+  @apply text-white;
+}
+
+.underline-custom-brand {
+  @apply relative inline-block;
+}
+
+.underline-custom-brand::after {
+  @apply content-[''] absolute w-full scale-x-100 h-1 bottom-0 left-0 bg-brand rounded-full;
+}
+
+.underline-custom {
+  @apply relative inline-block;
+}
+
+.underline-custom::after {
+  @apply content-[''] absolute w-full scale-x-100 h-1 bottom-0 left-0 bg-dark-primary rounded-full;
+}
+
+.underline-custom:where(.dark, .dark *)::after {
+  @apply bg-light-primary;
+}
+
+.underline-left {
+  @apply relative inline-block;
+}
+
+.underline-left::after {
+  @apply content-[''] absolute w-full scale-x-0 h-1 bottom-0 left-0 bg-dark-primary rounded-full transition duration-500 origin-bottom-right;
+}
+
+.underline-left:where(.dark, .dark *)::after {
+  @apply bg-white;
+}
+
+.underline-left:hover::after {
+  @apply scale-x-100 origin-bottom-left;
+}
+
+.prose {
+  @apply font-primary;
+}
+
+#TableOfContents > ul {
+  @apply space-y-1.5 font-primary;
+}
+
+#TableOfContents > ul > li > a:hover {
+  @apply underline decoration-dotted text-brand;
+}
+
+.pagefind-ui__form {
+  @apply w-full text-dark-primary relative z-10;
+}
+
+.pagefind-ui__form:where(.dark, .dark *) {
+  @apply dark:text-light-primary;
+}
+
+.pagefind-ui__search-input {
+  @apply w-10/12 border border-gray-300 rounded-s-full pl-3 py-1 focus:outline-none;
+}
+
+.pagefind-ui__search-clear {
+  @apply w-2/12 py-1 rounded-e-full bg-gray-300 px-3 border border-gray-300 text-dark-primary -ml-2;
+}
+
+.pagefind-ui__search-input:where(.dark, .dark *) {
+  @apply border-gray-700;
+}
+
+.pagefind-ui__search-clear:where(.dark, .dark *) {
+  @apply bg-gray-700 border-gray-700 text-light-primary;
+}
+
+.pagefind-ui__results-area {
+  @apply space-y-5 bg-gray-300 shadow-xl rounded-xl p-5 mt-2;
+}
+
+.pagefind-ui__results-area:where(.dark, .dark *) {
+  @apply bg-gray-950;
+}
+
+.pagefind-ui__results {
+  @apply space-y-5;
+}
+
+.pagefind-ui__result {
+  @apply flex gap-1 justify-center border border-gray-400 rounded-xl p-3;
+}
+
+.pagefind-ui__result:where(.dark, .dark *) {
+  @apply border-gray-900;
+}
+
+.pagefind-ui__result-thumb {
+  @apply w-40;
+}
+
+.pagefind-ui__result-link {
+  @apply font-bold;
+}
+
+.pagefind-ui__result-link:hover {
+  @apply underline underline-offset-4;
+}
+
+.pagefind-ui__result-excerpt {
+  @apply text-sm;
+}
+
+.pagefind-ui__result-inner {
+  @apply space-y-3;
+}
+
+.pagefind-ui__result-nested {
+  @apply ml-5;
+}
+
+.pagefind-ui__drawer {
+  @apply absolute top-7 shadow-xl;
+}
+
+.dropdown-button {
+  @apply flex justify-center items-center;
+}

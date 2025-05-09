@@ -1,0 +1,80 @@
+baseURL: 'https://example.org/'
+languageCode: 'en-us'
+title: 'My New Hugo Site'
+pagination:
+  pagerSize: 10
+
+######################
+########## Menu Entery
+######################
+menus:
+  main:
+    - name: Home
+      url: /
+      weight: 10
+    - name: Articles
+      url: /articles/
+      weight: 30
+    - name: Pages
+      weight: 40
+      hasChidlren: true
+    - name: Tags
+      parent: Pages
+      url: tags/
+      weight: 10
+    - name: Terms
+      parent: Pages
+      url: tags/ai/
+      weight: 20
+    - name: Single Page
+      parent: Pages
+      url: single/
+      weight: 30
+
+
+  footer:
+    - name: Home
+      url: /
+      weight: 10
+    - name: About
+      url: /about/
+      weight: 20
+    - name: Articles
+      url: /articles/
+      weight: 30
+
+######################
+########## Site Params
+######################
+params:
+  defaultCover: https://placehold.co/600
+  copyright: ©2025 All right reserved.
+  featured_tag: health
+  social:
+    facebook: https://facebook.com/
+    instagram: https://instagram.com/
+    youtube: https://youtube.com/
+
+
+markup:
+  tableOfContents:
+    endLevel: 2
+    ordered: false
+    startLevel: 2
+
+build:
+  buildStats:
+    enable: true
+  cachebusters:
+  - source: assets/notwatching/hugo_stats\.json
+    target: css
+  - source: (postcss|tailwind)\.config\.js
+    target: css
+
+module:
+  mounts:
+  - source: assets
+    target: assets
+  - disableWatch: true
+    source: hugo_stats.json
+    target: assets/notwatching/hugo_stats.json

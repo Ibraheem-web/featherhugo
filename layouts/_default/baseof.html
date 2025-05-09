@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    {{ partial "head.html" . }}
+</head>
+<body>
+    {{ partial "header.html" . }}
+    <main class="bg-white dark:bg-black">
+        {{ block "main" . }}
+        {{ end }}
+    </main>
+    {{ partial "footer.html" . }}
+    {{ partial "scroll-top.html" . }}
+    {{ partialCached "scripts.html" . }}
+</body>
+</html>
