@@ -1,6 +1,6 @@
 # FeatherHugo
 
-This is a standalone [Hugo](https://gohugo.io/) website powered by **Tailwind CSS** and includes enhanced interactivity via plugins like **Glider.js** and **FsLightbox**. It is designed for fast, responsive content-driven sites.
+This is a standalone [Hugo](https://gohugo.io/) website powered by [Tailwind CSS](https://tailwindcss.com/) and includes enhanced interactivity via plugins like **Glider.js** and **FsLightbox**. It is designed for fast, responsive content-driven sites.
 
 ---
 
