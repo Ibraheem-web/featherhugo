@@ -1,4 +1,4 @@
-# FeatherHugo
+# FeatherHugo - Hugo Based Blog Theme
 ### [Demo](https://ibraheemguides.netlify.app/)
 
 This is a standalone [Hugo](https://gohugo.io/) website powered by [Tailwind CSS](https://tailwindcss.com/) and includes enhanced interactivity via plugins like **Glider.js** and **FsLightbox**. It is designed for fast, responsive content-driven sites.
@@ -95,3 +95,7 @@ hugo server
 ## 📄 License
 
 This project is open-source. You are free to customize, extend, and share.
+
+---
+
+Consider giving a star if you like it
